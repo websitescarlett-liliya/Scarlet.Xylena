@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scarlet.Xylena - Media Downloader</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dark-mode">
+
+    <!-- Navbar / Header -->
+    <header class="glass-nav">
+        <div class="logo">Scarlet.Xylena</div>
+        <div class="widgets">
+            <span id="widget-day">Hari</span>, 
+            <span id="widget-date">00/00/0000</span> | 
+            <span id="widget-time">00:00:00</span>
+        </div>
+        <button class="btn-icon magnetic" id="open-settings">
+            <i class="fa-solid fa-gear"></i>
+        </button>
+    </header>
+
+    <main class="container">
+        <!-- Main Title & Subtitle -->
+        <div class="hero floating-element">
+            <h1 class="title">Scarlet.Xylena</h1>
+            <span class="badge-akses">Akses khusus</span>
+            <p class="subtitle">Download Video (MP4) & Audio (MP3) dengan Mudah & Cepat</p>
+        </div>
+
+        <!-- Download Box Container -->
+        <div class="download-card glass-card">
+            <!-- Tab Switcher -->
+            <div class="tab-container">
+                <button class="tab-btn active magnetic" id="tab-mp4">MP4 (Video)</button>
+                <button class="tab-btn magnetic" id="tab-mp3">MP3 (Audio)</button>
+                <div class="tab-indicator" id="tab-indicator"></div>
+            </div>
+
+            <!-- Input Form -->
+            <div class="input-group">
+                <input type="text" id="video-url" placeholder="Tempel tautan TikTok di sini..." />
+                <button id="btn-fetch" class="btn-primary magnetic">
+                    <i class="fa-solid fa-magnifying-glass"></i> Cari
+                </button>
+            </div>
+
+            <!-- Result Section -->
+            <div id="result-container" class="result-container hidden">
+                <div class="author-info">
+                    <img id="res-avatar" src="" alt="Avatar">
+                    <div>
+                        <h4 id="res-author">Nama Pengguna</h4>
+                        <p id="res-nickname">@nickname</p>
+                    </div>
+                </div>
+
+                <p id="res-title" class="video-title">Judul Video / Sound Original</p>
+
+                <div class="select-options">
+                    <label>Kualitas (FPS/P):</label>
+                    <select id="select-quality">
+                        <option value="720p">720p (30 FPS)</option>
+                        <option value="1080p">1080p (60 FPS)</option>
+                        <option value="2k">2K (120 FPS)</option>
+                        <option value="3k">3K (260 FPS) [Premium]</option>
+                        <option value="4k">4K (500 FPS) [Premium]</option>
+                    </select>
+                </div>
+
+                <a id="download-link" href="#" target="_blank" class="btn-download magnetic">
+                    <i class="fa-solid fa-download"></i> Unduh Sekarang
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Setting / Floating Screen -->
+    <div class="modal-overlay hidden" id="settings-modal">
+        <div class="modal-content glass-card floating-modal">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-sliders"></i> Pengaturan & Profil</h2>
+                <button class="btn-close" id="close-settings">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- Profile Section -->
+                <div class="setting-section">
+                    <h3><i class="fa-solid fa-user"></i> Profil Pengguna</h3>
+                    <div class="input-field">
+                        <label>Nama Pengguna:</label>
+                        <input type="text" id="user-name-input" value="Guest User">
+                        <button id="save-username" class="btn-small">Simpan</button>
+                    </div>
+                    <div class="status-premium">
+                        Status: <span id="premium-status-text" class="status-free">Free User</span>
+                    </div>
+                </div>
+
+                <!-- Kode Premium -->
+                <div class="setting-section">
+                    <h3><i class="fa-solid fa-key"></i> Masukkan Kode Premium</h3>
+                    <div class="input-field">
+                        <input type="text" id="premium-code-input" placeholder="Masukkan Kode...">
+                        <button id="btn-redeem" class="btn-small">Aktivasi</button>
+                    </div>
+                </div>
+
+                <!-- Tampilan & Tema -->
+                <div class="setting-section">
+                    <h3><i class="fa-solid fa-palette"></i> Tampilan</h3>
+                    <div class="setting-item">
+                        <span>Mode Gelap / Terang</span>
+                        <button id="toggle-theme" class="btn-small">Ganti Mode</button>
+                    </div>
+                    <div class="setting-item">
+                        <span>Warna Utama (Theme Color)</span>
+                        <input type="color" id="color-picker" value="#ff2a5f">
+                    </div>
+                    <div class="setting-item">
+                        <span>Ganti Background (Warna)</span>
+                        <input type="color" id="bg-color-picker" value="#0f0c20">
+                    </div>
+                    <div class="setting-item">
+                        <span>Ganti Background (Galeri)</span>
+                        <input type="file" id="bg-file-input" accept="image/*">
+                    </div>
+                </div>
+
+                <!-- Platform Populer & Google Search -->
+                <div class="setting-section">
+                    <h3><i class="fa-solid fa-globe"></i> Platform & Pencarian</h3>
+                    <div class="google-search-box">
+                        <input type="text" id="google-search-input" placeholder="Cari di Google...">
+                        <button id="btn-google-search" class="btn-small"><i class="fa-solid fa-search"></i></button>
+                    </div>
+                    <div class="platform-grid">
+                        <a href="https://instagram.com" target="_blank" class="platform-btn"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                        <a href="https://facebook.com" target="_blank" class="platform-btn"><i class="fa-brands fa-facebook"></i> Facebook</a>
+                        <a href="https://wa.me/" target="_blank" class="platform-btn"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                        <a href="https://x.com" target="_blank" class="platform-btn"><i class="fa-brands fa-x-twitter"></i> X</a>
+                        <a href="https://tiktok.com" target="_blank" class="platform-btn"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+                        <a href="https://chess.com" target="_blank" class="platform-btn"><i class="fa-solid fa-chess"></i> Game Catur</a>
+                    </div>
+                </div>
+
+                <!-- Sistem & Bug Report -->
+                <div class="setting-section">
+                    <h3><i class="fa-solid fa-bug"></i> Bantuan & Sistem</h3>
+                    <button id="btn-report-bug" class="btn-danger"><i class="fa-brands fa-whatsapp"></i> Laporan Bug / Error</button>
+                    <button id="btn-restart" class="btn-warning"><i class="fa-solid fa-rotate-right"></i> Restart Aplikasi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
